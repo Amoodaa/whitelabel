@@ -1,0 +1,18 @@
+{
+  "name": "whitelabel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Imad Shatali <imad.shatali@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "install": "cd client && yarn && cd ../admin && yarn && cd ../server && yarn",
+    "server": "cd server && yarn dev",
+    "client": "cd client && yarn start",
+    "client:watch-config": "cd client && yarn watch-config",
+    "admin": "cd admin && yarn start",
+    "build:client": "cd client && yarn && yarn build",
+    "build:admin": "cd admin && yarn && yarn build",
+    "kill": "fuser -k 5000/tcp",
+    "kill-run": "yarn kill && yarn server"
+  }
+}
