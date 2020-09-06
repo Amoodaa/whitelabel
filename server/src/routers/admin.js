@@ -3,6 +3,9 @@ const { join } = require("path");
 const {
   promises: { writeFile },
 } = require("fs");
+
+const shell = require("shelljs");
+
 const admin = Router();
 
 admin.get("/theme", (req, res) => {
@@ -20,6 +23,12 @@ admin.post("/theme", (req, res, next) => {
       res.send("UPDATED");
     })
     .catch(next);
+});
+
+admin.post("/deploy", (req, res) => {
+  shell.exec("cd ../client && yarn build").code
+    ? res.status(500).end()
+    : res.end();
 });
 
 admin.get("/", (req, res) => {

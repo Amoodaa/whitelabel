@@ -13,6 +13,8 @@
     "build:client": "cd client && yarn && yarn build",
     "build:admin": "cd admin && yarn && yarn build",
     "kill": "fuser -k 5000/tcp",
-    "kill-run": "yarn kill && yarn server"
+    "kill-run": "yarn kill && yarn server",
+    "start": "cd server && yarn start",
+    "heroku-postbuild": "yarn build:client && yarn build:admin"
   }
 }

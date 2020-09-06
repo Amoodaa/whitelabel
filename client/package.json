@@ -18,7 +18,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "watch-config": "nodemon -w ./antd.customize.less --exec \"craco start\""
+    "watch-config": "nodemon -w ./antd.customize.json --exec \"craco start\""
   },
   "eslintConfig": {
     "extends": "react-app"

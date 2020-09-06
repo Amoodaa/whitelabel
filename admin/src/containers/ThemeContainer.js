@@ -6,13 +6,15 @@ import Axios from 'axios';
 
 const ThemeContainer = () => {
   const [theme, setTheme] = useState({});
-
+  const [hasChanged, setHasChanged] = useState(false);
   useEffect(() => {
-    Axios.get('/theme').then(({ data }) => setTheme(data));
+    Axios.get('/admin/theme').then(({ data }) => setTheme(data));
   }, []);
 
   const handleDeployClick = () => {
-    Axios.post('/theme', theme).then(() => message.success('Deployed!'));
+    Axios.post('/admin/theme', theme)
+      .then(() => Axios.post('/deploy'))
+      .then(() => message.success('Deployed!'));
   };
 
   const entries = Object.entries(theme);
@@ -20,7 +22,7 @@ const ThemeContainer = () => {
 
   return (
     <div style={{ width: '100%' }}>
-      <Button type="primary" onClick={handleDeployClick}>
+      <Button type="primary" onClick={handleDeployClick} disabled={!hasChanged}>
         Deploy the new theme
       </Button>
       <pre>{JSON.stringify(theme, null, 2)}</pre>
@@ -30,7 +32,10 @@ const ThemeContainer = () => {
             {k}
             <TwitterPicker
               color={v}
-              onChange={(color) => setTheme({ ...theme, [k]: color.hex })}
+              onChange={(color) => {
+                setTheme({ ...theme, [k]: color.hex });
+                setHasChanged(true);
+              }}
             />
           </label>
         </div>
