@@ -6,14 +6,15 @@ const morgan = require("morgan");
 
 const app = express();
 
-app.use(express.static(join(__dirname, "..", "..", "admin", "build")));
-app.use(express.static(join(__dirname, "..", "..", "client", "build")));
 
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/admin", adminRouter);
 app.use("/", clientRouter);
+app.use("/admin", adminRouter);
+
+app.use(express.static(join(__dirname, "..", "..", "admin", "build")));
+app.use(express.static(join(__dirname, "..", "..", "client", "build")));
 
 app.use((err, req, res, next) => {
   console.log(err);
